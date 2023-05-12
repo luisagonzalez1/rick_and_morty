@@ -1,12 +1,13 @@
 import './App.css'
-import Cards from './components/Cards/Cards.jsx';
-import Nav from './components/Nav';
+import Cards from './components/Cards/Cards.jsx'; 
+import Nav from './components/Nav/Nav';
 import About from './components/About/About';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Detail from './components/Detail/Detail';
 import Form from './components/Form/Form';
+import Favorites from './components/Favorites/Favorites';
 
 
 function App() {   
@@ -21,8 +22,11 @@ function App() {
 
   
  function onSearch(id) {
-   axios(`https://rickandmortyapi.com/api/character/${id}`).then( ({ data }) => {
-      const char = characters?.find (e => e.id === data.id)
+   axios(`https://rickandmortyapi.com/api/character/${id}`)
+   .then(({data}) => {
+     
+      const char = characters?.find(e => e.id === (data.id))
+     
       if (char){
         alert("Already in the list")
       } 
@@ -35,13 +39,17 @@ function App() {
      })
    }
    
-   const login = (userData) => {
-    if(userData.password === PASSWORD  && userData.email === EMAIL){
-      setAccess(true)
-      navigate('/home')
-    }
-  }
-
+  const login = (userData) => {
+    const { email, password } = userData;
+    const URL = 'http://localhost:3001/rickandmorty/login/';
+    axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+       const { access } = data;
+       console.log(data)
+       setAccess(access);
+       access && navigate('/home');
+    });
+ }
+   
   useEffect(()=> {
     !access && navigate('/')
   },[access])
@@ -54,7 +62,11 @@ function App() {
    return (
       <div className='container'>
 
-        { pathname !== '/' && <Nav onSearch = {onSearch}/> }
+        { pathname !== '/' && 
+        <Nav
+         onSearch = {onSearch}
+         setAccess= {setAccess}
+          /> }
        
          <Routes>
        
@@ -65,6 +77,8 @@ function App() {
             <Route path="/about" element={<About/>}/>
 
             <Route path='/detail/:id' element={<Detail/>}/>
+
+            <Route path='/favorites' element={<Favorites onClose = {onClose} />}/>
 
       
       </Routes>

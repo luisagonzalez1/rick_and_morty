@@ -3,6 +3,7 @@
     align-items : center;
     padding-top: 10px;
     margin-left: 5%; 
+    
 }
 .logo {
     width: 13%;
@@ -14,16 +15,17 @@
 
 
 .containerInput {
-    margin-left: 30%;
+    margin-left: 4%;
+   
 }
 
 .input {
     border-radius: 16px;
     position:absolute;
-    width: 40%;
+    width: 30%;
     height: 6%;
     padding-left: 1%;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .btn {
@@ -35,6 +37,7 @@
     height: 30%;
     margin-top: 10px;
     margin-left: 90px;
+   
 }
 
 @media (min-width: 400px) and (max-width: 700px){

@@ -1,13 +1,13 @@
-import style from './SearchBar.module.css';
+import style from './SearchBar.module.css';    
 import imageLogo from '../../image/logo.jpg';
 import { useState } from 'react';
 
 export default function SearchBar(props) {
    let [id, setId] =useState ('');
+   
      
    const handleEnter = (event) => {
       if (event.key === 'Enter'){
-         if(id)
          props.onSearch (id);
       }   
    }
@@ -34,7 +34,11 @@ export default function SearchBar(props) {
      onChange={handleChange}
      value = {id}
   />
-  
+   <button 
+           onClick={()=> props.onSearch(id)}
+           className={style.btn}
+         >
+         </button>
 
   </div>
  </div>

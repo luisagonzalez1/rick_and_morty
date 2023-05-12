@@ -21,6 +21,9 @@ const validation = (data) => {
     errors.password = "Debe contener letras y numeros, ademas tiene que tener una longitud entre 6 y 10 caracteres"
   }
 
+  if(data.password !== "1234luisa"){
+    errors.incorrectPass = "Contraseña incorrecta"
+  }
   return errors;
  
   
