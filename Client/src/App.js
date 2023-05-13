@@ -8,7 +8,7 @@ import {Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Detail from './components/Detail/Detail';
 import Form from './components/Form/Form';
 import Favorites from './components/Favorites/Favorites';
-
+const URL = 'http://localhost:3001/rickandmorty/login/';
 
 function App() {   
    let [ characters, setCharacters ] = useState([])
@@ -21,38 +21,38 @@ function App() {
    const navigate = useNavigate();
 
   
- function onSearch(id) {
-   axios(`https://rickandmortyapi.com/api/character/${id}`)
-   .then(({data}) => {
-     
-      const char = characters?.find(e => e.id === (data.id))
-     
-      if (char){
-        alert("Already in the list")
-      } 
-      else if(data.id !== undefined) { 
-       setCharacters(characters => [...characters, data]);
-      }
-       else {
-        alert('Character not found');
-      }
-     })
-   }
+ const onSearch = async (id) => {
+  try {
+    const { data } = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
    
-  const login = (userData) => {
-    const { email, password } = userData;
-    const URL = 'http://localhost:3001/rickandmorty/login/';
-    axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
-       const { access } = data;
-       console.log(data)
-       setAccess(access);
-       access && navigate('/home');
-    });
+      if (data.name){
+        setCharacters((oldChars) => [...oldChars, data]);
+      };
+
+  } catch (error) {
+    alert('!no hay personajes con este ID!');
+  }
+ };
+
+
+  const login =  async (userData) => {
+    try {
+      const { email, password } = userData;
+      const { data } = await axios(URL + `?email=${email}&password=${password}`)
+      const { access } = data;
+        
+         setAccess(access);
+         access && navigate('/home');
+   
+    } catch (error) {
+      console.log(error.message);
+    }
+   
  }
    
   useEffect(()=> {
     !access && navigate('/')
-  },[access])
+  },[access, navigate])
  
  const onClose = (id) => {
    setCharacters(

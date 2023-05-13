@@ -1,7 +1,9 @@
 .container {
+ background-color: #70178c;
  text-align: center;
- margin-left: 5%;
- padding: 10%;
+ margin-left: 3%;
+ padding: 10px;
+ transform: scale(0.8);
 }
 
 .label {
@@ -17,8 +19,30 @@
 }
 
 
+button {
  
- 
-  
- 
-  
+  background-color: #2818b7;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transition: left 0.3s ease-in-out;
+}
+
+button:hover:before {
+  left: 100%;
+}
+
+

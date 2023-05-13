@@ -41,7 +41,7 @@ const Favorites = ({myFavorites, onClose })=> {
         myFavorites?.map(character => {
          return (
              <Card
-             key={character.id}
+             key={character.id} 
              id= {character.id}
              name={character.name}
              species={character.species}
