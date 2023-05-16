@@ -1,12 +1,6 @@
 const express = require ("express");
 const server = express();
-const router = require('./routes/index');
-const morgan = require('morgan');
-const PORT = 3001;
-
-server.use(express.json());
-server.use(morgan('dev'))
-
+const router = require('./src/routes');
 
 server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -22,9 +16,9 @@ server.use((req, res, next) => {
     next();
  });
 
+ server.use(express.json());
  server.use('/rickandmorty', router);
 
-server.listen(PORT, () => {
-    console.log(`server raised in port: ${PORT}`);
-});
-
+module.exports = {
+   server
+}
