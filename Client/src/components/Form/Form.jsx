@@ -51,20 +51,20 @@ const handleChange = (evento) => {
 
                 {
                   errors.email ? (
-                     <p style={{color:"red"}}>
+                     <p style={{color:"black"}}>
                         {errors.email}</p>
 
                   ) : errors.emailVacio ? (
-                      <p style={{color: "red"}} >
+                      <p style={{color: "black"}} >
                       {errors.emailVacio}</p>
                   ) : 
                    errors.validEmail ?
                   (
-                      <p style={{color:"red"}}>
+                      <p style={{color:"black"}}>
                       {errors.validEmail}</p>
                   ) :
                   (
-                    <p style = {{color: 'red'}}>{errors.caracteres}</p>
+                    <p style = {{color: 'black'}}>{errors.caracteres}</p>
                   )
                 
                  }  
@@ -95,7 +95,6 @@ const handleChange = (evento) => {
                  </div>
             <br/>
             <button type='submit' className={style.btn}>Submit</button>
-             
         </form>
       </div>
         

@@ -1,16 +1,23 @@
 import SearchBar from "../SearchBar/SearchBar";         
 import style from "./Nav.module.css"
-import { Link } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 
 const Nav = (props) => {
     const { onSearch, setAccess} = props;
+
+    const { pathname }  = useLocation()
 
     const handleLogOut = () => {
         setAccess(false);
     };
     return (
         <div className={style.container}>
-            <SearchBar onSearch = {onSearch} />
+
+            {
+                 pathname.includes("/home") &&
+                 <SearchBar onSearch = {onSearch} />
+            }
+           
              <Link to='/about'>
                   <button className={style.btn}>About</button>
              </Link>

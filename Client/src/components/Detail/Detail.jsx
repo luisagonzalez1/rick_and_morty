@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import {useState, useEffect} from "react";
-
+import style from "./Detail.module.css"
 
 const Detail = () => {
     const [character, setCharacter] = useState ({})
+    
     const { id } = useParams()
 
     useEffect(() => {
@@ -21,17 +22,22 @@ const Detail = () => {
 
     return(
         <>
-        <h1>Detail</h1>
         {
             character ? (
-                <div>
+                <div className={style.detail}>
+                    <div className={style.title}>
                     <h2>Name: {character.name}</h2>
                     <h2>Status: {character.status}</h2>
                     <h2>Species: {character.species}</h2>
                     <h2>Gender: {character.gender}</h2>
                     <h2>Origin: {character.origin?.name}</h2>
-                    <img src={character.image} alt={character.name} />
+                  
                 </div>
+                <div className={style.image} >
+                <img src={character.image} alt={character.name} />  
+            </div>
+
+       </div>
             )
             :   (
                 ""
@@ -40,6 +46,6 @@ const Detail = () => {
         
         </>
     )
-}
+ }
 
 export default Detail;

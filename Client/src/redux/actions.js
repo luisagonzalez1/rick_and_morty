@@ -5,10 +5,7 @@ import axios from 'axios';
    const endpoint = 'http://localhost:3001/rickandmorty/fav';
       return async (dispatch) => {
          try {
-            const { data } = await  axios.post(endpoint, character);
-
-            if(!data.length) throw Error('No hay favoritos')
-
+            const { data } = await  axios.post(endpoint, character)
             return dispatch({
                type: ADD_FAV,
                payload: data,
@@ -17,17 +14,15 @@ import axios from 'axios';
             console.log(error.message);
          }
         
-      };
- };
+      }
+ }
 
   export const removeFav =  (id) => {
-     const endpoint = `http://localhost:3001/rickandmorty/fav/${id}`;
+     const endpoint = 'http://localhost:3001/rickandmorty/fav/' + id;
      return async (dispatch) => {
       try {
          const { data } = await axios.delete(endpoint);
-         
-       
-         return dispatch({
+            return dispatch({
             type: REMOVE_FAV,
             payload: data,
          });

@@ -9,6 +9,7 @@ export default function SearchBar(props) {
    const handleEnter = (event) => {
       if (event.key === 'Enter'){
          props.onSearch (id);
+         setId("")
       }   
    }
    

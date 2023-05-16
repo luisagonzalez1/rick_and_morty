@@ -2,46 +2,52 @@ import { ADD_FAV, FILTER, REMOVE_FAV,ORDER} from "./actions-types"
  
 const initialState = {
     myFavorites: [],
-    allCharactersFav: []
+    allCharacter: []
    
 }
 
-const reducer = (state = initialState, {type, payload}) => {
-    switch ( type) {
+const reducer = (state = initialState, action ) => {
+    switch ( action.type) {
         case ADD_FAV:
+          case 'ADD_FAV':
             return {
                 ...state,
-              myFavorites: payload,
-              allCharactersFav: payload
-            }
+              myFavorites: action.payload,
+              allCharacter: action.payload
+            };
 
             case FILTER:
-                const allCharactersFiltered = state.allCharactersFav.filter(allCharactersFiltered)
+                let characterFilter = state.allCharacter.filter((character) => character.gender === action.payload)
+                if(action.payload === 'All'){
+                  return {
+                    ...state,
+                    myFavorites: state.allCharacter,
+                   }
+
+                }
                return {
                 ...state,
-                myFavorites: 
-                  payload === 'allcharacters'
-                  ? [...state.allCharactersFav]
-                  : allCharactersFiltered
+                myFavorites: characterFilter,
                }
-            
+
+
             case ORDER:
-               const orderCharacter = state.allCharactersFav.sort((a, b) => {
-                if(payload === "A"){
-                   // if(a.id < b.id) return -1;
-                   // if(b.id < a.id) return 1
-                    return a.id - b.id
+               const orderCharacter = state.allCharacter.sort((a, b) => {
+                if(action.payload === "A"){
+                   if(a.id < b.id) return -1;
+                   if(b.id < a.id) return 1
+                    return 0
                     
                 }
                 // DESCENDENTE
                 else {
-                   //if(a.id < b.id) return 1
-                   //if(b.i < a.id) return - 1
-                   return b.id - a.id
+                   if(a.id < b.id) return 1
+                   if(b.i < a.id) return - 1
+                   return 0
                 }
             
             })
-          console.log("caso order", orderCharacter);
+         
         return {
             ...state,
             myFavorites: [...orderCharacter]
@@ -51,9 +57,7 @@ const reducer = (state = initialState, {type, payload}) => {
             case REMOVE_FAV:
               return {
                 ...state,
-                myFavorites: payload,
-                allCharactersFav: payload
-             
+                myFavorites: action.payload
              }
 
 
@@ -63,7 +67,7 @@ const reducer = (state = initialState, {type, payload}) => {
             }
 
 
-
+          }
      
     }
 
@@ -77,6 +81,6 @@ const reducer = (state = initialState, {type, payload}) => {
 
 
 
-}
+
 
 export default reducer
